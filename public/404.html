@@ -1,33 +1,190 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Page Not Found</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>404 - SYSTEM FAILURE</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;900&display=swap" rel="stylesheet">
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 3px; }
-      #message h3 { color: #888; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
+    <style>
+        :root {
+            --bg-color: #FFF8E7;
+            --primary: #FFD93D; --secondary: #6BCB77; --accent: #4D96FF;    
+            --border: 3px solid #000; --shadow: 6px 6px 0px #000;
+        }
+
+        body { font-family: 'Fredoka', sans-serif; color: #2d3436; height: 100vh; overflow: hidden; margin: 0; background: #000; }
+
+        /* --- BACKGROUND GLITCH (AGRESIF) --- */
+        #bg-canvas {
+            position: fixed; top: -10%; left: -10%; width: 120%; height: 120%; z-index: -1;
+            background-color: var(--bg-color);
+            /* Layer 1: Dot Pattern */
+            /* Layer 2: Garis Scanline TV berjalan */
+            background-image: 
+                radial-gradient(#000000 1.5px, transparent 1.5px),
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                linear-gradient(90deg, rgba(255,0,0,0.06), rgba(0,255,0,0.02), rgba(0,0,255,0.06));
+            
+            background-size: 30px 30px, 100% 4px, 6px 100%;
+            
+            /* Animasi Gabungan: Getar + Scanline Jalan */
+            animation: 
+                bg-shake 0.2s infinite steps(4), /* Getar kasar */
+                scanline-scroll 8s linear infinite; /* Garis turun */
+            
+            will-change: transform, background-position;
+        }
+
+        /* Efek kedip-kedip random */
+        #bg-canvas::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            animation: flicker-chaos 0.1s infinite;
+            pointer-events: none;
+        }
+
+        /* --- KEYFRAMES --- */
+        
+        /* 1. Animasi Background Kejang-kejang (Tanpa henti) */
+        @keyframes bg-shake {
+            0% { transform: translate(0, 0) skewX(0); filter: hue-rotate(0deg); }
+            20% { transform: translate(-4px, 2px) skewX(1deg); filter: invert(0.1); }
+            40% { transform: translate(4px, -2px) skewX(-1deg); }
+            60% { transform: translate(-2px, 4px) skewX(0); filter: hue-rotate(90deg); }
+            80% { transform: translate(2px, -4px) skewX(2deg); }
+            100% { transform: translate(0, 0) skewX(0); }
+        }
+
+        /* 2. Animasi Garis TV Turun */
+        @keyframes scanline-scroll {
+            0% { background-position: 0 0, 0 0, 0 0; }
+            100% { background-position: 30px 30px, 0 100%, 0 0; }
+        }
+
+        /* 3. Animasi Lampu Rusak */
+        @keyframes flicker-chaos {
+            0% { opacity: 0; }
+            50% { opacity: 0.2; }
+            51% { opacity: 0; }
+            100% { opacity: 0.1; }
+        }
+
+        /* --- 404 CONTENT STYLES --- */
+        .container-404 {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 20px; position: relative; z-index: 2;
+        }
+
+        .error-card {
+            background: #fff; border: var(--border); box-shadow: 10px 10px 0 #000;
+            border-radius: 20px; padding: 40px; text-align: center;
+            max-width: 600px; width: 100%; position: relative;
+            /* Card ikut goyang sedikit biar kerasa impactnya */
+            animation: card-float 3s ease-in-out infinite; 
+        }
+        @keyframes card-float { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-5px) rotate(1deg); } }
+
+        /* Glitch Text 404 (RGB Split) */
+        .glitch-text {
+            font-size: 8rem; font-weight: 900; position: relative;
+            color: #000; letter-spacing: -5px; line-height: 1;
+            animation: text-glitch 0.3s infinite;
+        }
+        .glitch-text::before, .glitch-text::after {
+            content: "404"; position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
+        }
+        /* Merah geser kiri */
+        .glitch-text::before { 
+            color: #ff0000; z-index: -1; 
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        /* Biru geser kanan */
+        .glitch-text::after { 
+            color: #0000ff; z-index: -2; 
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes text-glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); transform: translate(-4px,0); }
+            100% { clip-path: inset(60% 0 10% 0); transform: translate(-4px,4px); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); transform: translate(4px,0); }
+            100% { clip-path: inset(80% 0 5% 0); transform: translate(4px,-4px); }
+        }
+
+        /* TV Static Box */
+        .tv-box {
+            width: 100%; height: 150px; background: #000;
+            border: var(--border); border-radius: 10px; margin: 20px auto;
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .static-noise {
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: repeating-linear-gradient(0deg, transparent 0, transparent 1px, #333 1px, #333 2px);
+            background-size: 100% 4px; animation: static-move 0.05s infinite linear; opacity: 0.5;
+        }
+        @keyframes static-move { 0% { transform: translateY(0); } 100% { transform: translateY(10px); } }
+        
+        .tv-text {
+            color: #fff; font-size: 1.5rem; font-weight: bold; z-index: 2; text-transform: uppercase;
+            background: #FF0000; padding: 5px 15px; border: 2px solid #fff; 
+            transform: rotate(-3deg); box-shadow: 4px 4px 0 #000;
+            animation: text-blink 0.5s infinite;
+        }
+        @keyframes text-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        /* Button */
+        .btn-cartoon {
+            display: inline-block; background: var(--primary); color: #000;
+            font-weight: bold; font-size: 1.2rem; padding: 15px 30px;
+            border: var(--border); border-radius: 50px; text-decoration: none;
+            box-shadow: 4px 4px 0 #000; transition: 0.2s; margin-top: 25px;
+        }
+        .btn-cartoon:hover { background: #fff; transform: translate(-3px, -3px); box-shadow: 6px 6px 0 #000; color: #000; }
+        .btn-cartoon:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 #000; }
+        .sub-text { font-size: 1.1rem; line-height: 1.6; margin-top: 15px; }
     </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>404</h2>
-      <h1>Page Not Found</h1>
-      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
-      <h3>Why am I seeing this?</h3>
-      <p>This page was generated by the Firebase Command-Line Interface. To modify it, edit the <code>404.html</code> file in your project's configured <code>public</code> directory.</p>
+</head>
+<body>
+
+    <div id="bg-canvas"></div>
+
+    <div class="container-404">
+        <div class="error-card">
+            <div class="glitch-text">404</div>
+            
+            <div class="tv-box">
+                <div class="static-noise"></div>
+                <div class="tv-text">FATAL ERROR</div>
+            </div>
+
+            <h2 class="fw-bold mt-4">System Crashed! 💥</h2>
+            
+            <p class="sub-text text-muted">
+                Looks like the editor accidentally deleted the timeline.
+                <br>
+                The page you are looking for is lost in the <strong>Ḑ̶̣͍̿̅̐ä̸͈̪͕͕́̓̌̀̿̚͜v̶̜̟̼̾i̶̛̟̅͆n̷̛̩̦̳̅̇̔c̸̯̱͕̠͚͖̎ï̷͇͌̌̃͝ ̶̮̙̫̫̭̫͓͂̆̇̓͛͝Ŗ̶̘̪̞̳̮̂̽͗̈́̋̉e̴̢̧̫̻̹̳̲͒̓̕s̶͖̐̇̃̄̚ó̴̬̫͔̯̮̘̓̕͘͝ͅl̸̜͈͇̉̃́̈͜v̶͓̈́e̵̡̥̟̯̟͐ crash dump</strong>.
+            </p>
+
+            <a href="index.html" class="btn-cartoon">
+                <i class="fas fa-power-off me-2"></i> Reboot System
+            </a>
+        </div>
     </div>
-  </body>
+
+</body>
 </html>
