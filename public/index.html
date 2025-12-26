@@ -2,18 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <meta name="description" content="Portfolio of Cammile Astoria - Visual Art Editor, Colorist, and Head Photographer at Kabar Smanisda. Specializing in short films and social media content.">
-    <meta name="keywords" content="Video Editor, Colorist, Photographer, Portfolio, Smanisda, Cammile Astoria, Video Editing, Content Creator">
-    <meta name="author" content="Cammile Astoria">
     
+    <meta name="description" content="Portfolio of Cammile Astoria.">
     <title>Cammile Astoria - Visual Art Portfolio</title>
-    
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -21,250 +13,233 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        /* --- STYLE NEO-BRUTALISM (KARTUN) --- */
-        :root {
-            --bg-color: #FFF8E7;
-            --primary: #FFD93D;   
-            --secondary: #6BCB77; 
-            --accent: #4D96FF;    
-            --border: 3px solid #000;
-            --shadow: 6px 6px 0px #000;
-        }
-
+        /* --- CORE STYLES --- */
         html, body {
             width: 100%;
-            overflow-x: hidden;
+            overflow-x: hidden; /* WAJIB: Sembunyikan sisa banner yang melebar */
             margin: 0;
             padding: 0;
             font-family: 'Fredoka', sans-serif;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(#000000 1px, transparent 1px);
-            background-size: 20px 20px;
+            background-color: #FFF8E7;
+            background-image: radial-gradient(#000000 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
             color: #2d3436;
+            animation: bg-scroll 4s linear infinite;
         }
 
-        .navbar {
-            background: #fff !important;
-            border-bottom: var(--border);
-            box-shadow: 0 4px 0 #000;
+        @keyframes bg-scroll { 0% { background-position: 0 0; } 100% { background-position: 30px 30px; } }
+
+        :root {
+            --primary: #FFD93D; --secondary: #6BCB77; --accent: #4D96FF;    
+            --border: 3px solid #000; --shadow: 6px 6px 0px #000;
         }
 
-        .bio-card {
-            background: #fff;
-            border: var(--border);
-            box-shadow: var(--shadow);
-            border-radius: 20px;
-            padding: 30px 20px;
-            margin-top: 40px;
-            margin-bottom: 50px;
+        .navbar { background: #fff !important; border-bottom: var(--border); box-shadow: 0 4px 0 #000; position: sticky; top: 0; z-index: 1000; }
+
+        /* --- MARQUEE FIX (FULL WIDTH) --- */
+        .marquee-container-full {
             width: 100%;
-        }
-        
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: var(--border);
-            box-shadow: var(--shadow);
-            background: white;
-            animation: float 4s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .section-title {
-            display: inline-block;
-            background: var(--primary);
-            border: var(--border);
-            padding: 10px 25px;
-            border-radius: 50px;
-            box-shadow: 4px 4px 0 #000;
-            margin-bottom: 30px;
-            font-weight: bold;
-            transform: rotate(-2deg);
-            font-size: 1.1rem;
-            max-width: 90%;
-        }
-
-        .cartoon-box {
-            background: white;
-            border: var(--border);
-            border-radius: 15px;
-            padding: 12px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            transition: all 0.2s ease;
-            position: relative;
-            width: 100%;
-        }
-        .cartoon-box:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 8px 8px 0px #000;
-        }
-
-        .role-description-box {
-            background: #dff9fb;
-            border: var(--border);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-        
-        .thumbnail-wrapper {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 9 / 16; 
             overflow: hidden;
-            border-radius: 10px;
-            border: 2px solid #000;
-            cursor: pointer;
+            padding: 20px 0;
+            position: relative;
+            background: transparent; /* Biar background dot tetap kelihatan di sela-sela */
+        }
+
+        .marquee-wrapper {
             background: #000;
+            color: #fff;
+            padding: 12px 0;
+            border-top: 3px solid #000;
+            border-bottom: 3px solid #000;
+            overflow: hidden;
+            display: flex;
+            position: relative;
+            z-index: 1;
+            
+            /* LOGIC AGAR FULL SCREEN SAAT MIRING */
+            width: 120%; /* Lebar dilebihkan 120% layar */
+            margin-left: -10%; /* Geser ke kiri biar center */
+            transform: rotate(-2deg); /* Miringkan */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        .thumb-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease, filter 0.3s;
-            filter: grayscale(80%);
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: marquee 25s linear infinite; 
         }
 
-        .thumbnail-wrapper:hover .thumb-img {
-            transform: scale(1.05);
-            filter: grayscale(0%);
-        }
-
-        .play-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 217, 61, 0.9);
-            border: 3px solid #000;
-            border-radius: 50%;
+        .marquee-item {
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 0 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: #000;
-            box-shadow: 3px 3px 0 rgba(0,0,0,1);
-            transition: transform 0.2s;
-            z-index: 2;
+        }
+        
+        .marquee-item i { margin-right: 8px; color: var(--primary); }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        .thumbnail-wrapper:hover .play-overlay {
-            transform: translate(-50%, -50%) scale(1.1);
-            background: #fff;
+        /* --- CARTOON BOX --- */
+        .bio-card, .cartoon-box, .role-description-box {
+            background: white; border: var(--border); border-radius: 15px;
+            box-shadow: var(--shadow); margin-bottom: 30px; width: 100%;
+        }
+        .bio-card { padding: 30px 20px; margin-top: 40px; margin-bottom: 30px; }
+        .cartoon-box { padding: 10px; position: relative; }
+        .role-description-box { background: #dff9fb; padding: 20px; margin-bottom: 40px; }
+
+        .cartoon-box:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px #000; transition: 0.2s; }
+
+        .profile-image {
+            width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
+            border: var(--border); box-shadow: var(--shadow); background: white;
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+
+        .badge-cartoon {
+            background: var(--primary); color: #000; border: 2px solid #000;
+            border-radius: 50px; padding: 5px 15px; font-weight: 600;
+            box-shadow: 2px 2px 0 #000; display: inline-block;
+        }
+        .badge-secondary { background: var(--secondary); }
+
+        .section-title {
+            display: inline-block; background: var(--primary); border: var(--border);
+            padding: 10px 25px; border-radius: 50px; box-shadow: 4px 4px 0 #000;
+            margin-bottom: 30px; font-weight: bold; transform: rotate(-2deg); max-width: 90%;
         }
 
-        .video-title {
-            font-weight: 700;
-            margin-top: 15px;
-            text-align: center;
-            font-size: 0.9rem;
+        /* --- THUMBNAIL & TIKTOK --- */
+        .thumbnail-wrapper {
+            position: relative; width: 100%; aspect-ratio: 9 / 16; 
+            overflow: hidden; border-radius: 10px; border: 2px solid #000;
+            cursor: pointer; background: #000;
+        }
+        .thumb-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(80%); transition: 0.3s; }
+        .thumbnail-wrapper:hover .thumb-img { filter: grayscale(0%); transform: scale(1.05); }
+
+        .play-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 50px; height: 50px; background: rgba(255, 217, 61, 0.9);
+            border: 3px solid #000; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: #000; z-index: 2; box-shadow: 3px 3px 0 #000;
         }
 
-        .social-btn {
-            display: inline-block; width: 45px; height: 45px;
-            background: #fff; border: var(--border); border-radius: 12px;
-            text-align: center; line-height: 40px; color: #000; font-size: 20px;
-            margin: 5px; box-shadow: 3px 3px 0 #000; transition: 0.2s;
+        .tiktok-container-fixed {
+            width: 100%; max-width: 100%; overflow: hidden;
+            border-radius: 10px; display: flex; justify-content: center;
+            background: #000; min-height: 300px;
         }
+        blockquote.tiktok-embed, iframe.tiktok-embed {
+            min-width: 0 !important; max-width: 100% !important; width: 100% !important;
+            margin: 0 auto !important; border: none !important; border-radius: 10px !important;
+        }
+
+        .video-title { font-weight: 700; margin-top: 15px; text-align: center; font-size: 0.9rem; }
+        .social-btn { display: inline-block; width: 45px; height: 45px; background: #fff; border: var(--border); border-radius: 12px; text-align: center; line-height: 40px; color: #000; font-size: 20px; margin: 5px; box-shadow: 3px 3px 0 #000; transition: 0.2s; }
         .social-btn:hover { background: var(--primary); transform: translateY(-5px); box-shadow: 5px 5px 0 #000; }
         
         footer { border-top: var(--border); background: #fff; padding: 30px 0; }
-        
-        .instagram-media {
-            min-width: 0 !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 auto !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
+        .instagram-media { min-width: 0 !important; width: 100% !important; margin: 0 auto !important; }
     </style>
 </head>
 <body>
 
     <nav class="navbar sticky-top">
         <div class="container justify-content-center">
-            <span class="navbar-brand fw-bold"><i class="fas fa-shapes me-2"></i>Mile Portfolio</span>
+            <span class="navbar-brand fw-bold"><i class="fas fa-shapes me-2 fa-spin"></i>Mile Portfolio</span>
         </div>
     </nav>
     
-    <div class="container" style="overflow: hidden;">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="bio-card" data-aos="zoom-in-up">
                     <div class="row align-items-center">
                         <div class="col-md-4 text-center mb-4 mb-md-0">
-                            <img src="anjay.webp" onerror="this.src='https://via.placeholder.com/150'" alt="Profile Cammile Astoria" class="profile-image" width="150" height="150">
+                            <img src="anjay.webp" onerror="this.src='https://via.placeholder.com/150'" alt="Profile" class="profile-image">
                         </div>
                         <div class="col-md-8 text-center text-md-start">
-                            <h1 class="fw-bold display-6">Hello, I'm Mile! 🎨</h1>
+                            <h1 class="fw-bold display-6 mb-2">Hello, I'm Mile! 🎨</h1>
                             <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-2 mb-3">
-                                <span class="badge bg-warning text-dark border border-dark rounded-pill px-3 py-2">Visual Art Editor</span>
-                                <span class="badge bg-info text-dark border border-dark rounded-pill px-3 py-2">Colorist</span>
+                                <span class="badge-cartoon">Visual Art Editor</span>
+                                <span class="badge-cartoon badge-secondary">Colorist</span>
                             </div>
                             <p class="fs-6">I create stories through visual art. Specializing in color grading and short films content.</p>
                             <div class="mt-4">
-                                <a href="https://github.com/Teknisi-Anime" target="_blank" class="social-btn" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                                <a href="https://www.instagram.com/azrght/" target="_blank" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                                <a href="mailto:muhammadazzamishomuddin@gmail.com" class="social-btn" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                                <a href="https://github.com/Teknisi-Anime" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
+                                <a href="https://www.instagram.com/azrght/" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+                                <a href="mailto:muhammadazzamishomuddin@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="text-center">
-            <div class="section-title" data-aos="flip-up">
-                <h3 class="m-0 fs-5"><i class="fas fa-film me-2"></i>Short Films</h3>
+    </div>
+    <div class="marquee-container-full">
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <span class="marquee-item"><i class="fas fa-video"></i> VIDEO EDITING</span>
+                <span class="marquee-item"><i class="fas fa-palette"></i> COLOR GRADING</span>
+                <span class="marquee-item"><i class="fas fa-camera"></i> PHOTOGRAPHY</span>
+                <span class="marquee-item"><i class="fas fa-film"></i> CINEMATOGRAPHY</span>
+                <span class="marquee-item"><i class="fas fa-bolt"></i> VISUAL ART</span>
+                <span class="marquee-item"><i class="fas fa-star"></i> CREATIVE ONE STUDIO</span>
+                
+                <span class="marquee-item"><i class="fas fa-video"></i> VIDEO EDITING</span>
+                <span class="marquee-item"><i class="fas fa-palette"></i> COLOR GRADING</span>
+                <span class="marquee-item"><i class="fas fa-camera"></i> PHOTOGRAPHY</span>
+                <span class="marquee-item"><i class="fas fa-film"></i> CINEMATOGRAPHY</span>
+                <span class="marquee-item"><i class="fas fa-bolt"></i> VISUAL ART</span>
+                <span class="marquee-item"><i class="fas fa-star"></i> CREATIVE ONE STUDIO</span>
             </div>
+        </div>
+    </div>
+    <div class="container">
+        
+        <div class="text-center">
+            <div class="section-title" data-aos="flip-up"><h3 class="m-0 fs-5"><i class="fas fa-film me-2"></i>Short Films</h3></div>
         </div>
 
         <div class="row">
-            <div class="col-md-6" data-aos="fade-up">
+            <div class="col-12 col-md-6" data-aos="fade-up">
                 <div class="cartoon-box">
                     <div class="ratio ratio-16x9 rounded overflow-hidden border border-2 border-dark">
-                        <iframe src="https://www.youtube.com/embed/JpgFhNJ2-VY" loading="lazy" title="Kertas Expresi" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/JpgFhNJ2-VY" loading="lazy" allowfullscreen></iframe>
                     </div>
-                    <p class="video-title text-center">Kertas Expresi - FLS3N</p>
+                    <p class="video-title">Kertas Expresi - FLS3N</p>
                 </div>
             </div>
-            
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="100">
                 <div class="cartoon-box">
                     <div class="ratio ratio-16x9 rounded overflow-hidden border border-2 border-dark">
-                        <iframe src="https://www.youtube.com/embed/FKXaJHFT31U" loading="lazy" title="Dua Jalan" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/FKXaJHFT31U" loading="lazy" allowfullscreen></iframe>
                     </div>
-                    <p class="video-title text-center">Dua Jalan - SMA Awards 2025</p>
+                    <p class="video-title">Dua Jalan - SMA Awards 2025</p>
                 </div>
             </div>
-            
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="200">
                 <div class="cartoon-box">
                     <div class="ratio ratio-16x9 rounded overflow-hidden border border-2 border-dark">
-                        <iframe src="https://www.youtube.com/embed/y4hVjyJAHLQ" loading="lazy" title="Ones Dance Crew" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/y4hVjyJAHLQ" loading="lazy" allowfullscreen></iframe>
                     </div>
-                    <p class="video-title text-center">Ones Dance Crew 2025</p>
+                    <p class="video-title">Ones Dance Crew 2025</p>
                 </div>
             </div>
-
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-12 col-md-6" data-aos="fade-up" data-aos-delay="300">
                 <div class="cartoon-box">
                     <div class="ratio ratio-16x9 rounded overflow-hidden border border-2 border-dark">
-                        <iframe src="https://www.youtube.com/embed/wwg5ZBKlwyo" loading="lazy" title="Gati Samanjasya" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/wwg5ZBKlwyo" loading="lazy" allowfullscreen></iframe>
                     </div>
-                    <p class="video-title text-center">Gati Samanjasya - SMA Awards 2024</p>
+                    <p class="video-title">Gati Samanjasya - SMA Awards 2024</p>
                 </div>
             </div>
         </div>
@@ -277,119 +252,114 @@
         </div>
 
         <div class="row">
-            <div class="col-6 col-md-4 col-lg-3 mb-4" data-aos="zoom-in">
-                <div class="cartoon-box p-2">
+            <div class="col-12 col-md-6 col-lg-3 mb-4" data-aos="zoom-in">
+                <div class="cartoon-box p-2 h-100 d-flex flex-column">
                     <div class="thumbnail-wrapper tiktok-trigger" data-id="7541384263871024390" data-url="https://www.tiktok.com/@ekspresi_smanisda/video/7541384263871024390">
-                        <img src="independence day.webp" class="thumb-img" alt="Independence Day" width="200" height="350">
+                        <img src="independence day.webp" class="thumb-img" alt="Thumbnail">
                         <div class="play-overlay"><i class="fas fa-play"></i></div>
                     </div>
-                    <p class="video-title">Independence Day</p>
+                    <p class="video-title mt-auto">Independence Day</p>
                 </div>
             </div>
 
-            <div class="col-6 col-md-4 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                <div class="cartoon-box p-2">
+            <div class="col-12 col-md-6 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="cartoon-box p-2 h-100 d-flex flex-column">
                     <div class="thumbnail-wrapper tiktok-trigger" data-id="7535651981499567368" data-url="https://www.tiktok.com/@ekspresi_smanisda/video/7535651981499567368">
-                        <img src="mpls day 1.webp" class="thumb-img" alt="MPLS Day 1" width="200" height="350">
+                        <img src="mpls day 1.webp" class="thumb-img" alt="Thumbnail">
                         <div class="play-overlay"><i class="fas fa-play"></i></div>
                     </div>
-                    <p class="video-title">MPLS Day 1</p>
+                    <p class="video-title mt-auto">MPLS Day 1</p>
                 </div>
             </div>
-            
-            <div class="col-6 col-md-4 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="200">
-                <div class="cartoon-box p-2">
+
+             <div class="col-12 col-md-6 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="cartoon-box p-2 h-100 d-flex flex-column">
                     <div class="thumbnail-wrapper tiktok-trigger" data-id="7536816665711922488" data-url="https://www.tiktok.com/@ekspresi_smanisda/video/7536816665711922488">
-                        <img src="mpls day 2.webp" class="thumb-img" alt="MPLS Day 2" width="200" height="350">
+                        <img src="mpls day 2.webp" class="thumb-img" alt="Thumbnail">
                         <div class="play-overlay"><i class="fas fa-play"></i></div>
                     </div>
-                    <p class="video-title">MPLS Day 2</p>
+                    <p class="video-title mt-auto">MPLS Day 2</p>
                 </div>
             </div>
 
-            <div class="col-6 col-md-4 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="300">
-                <div class="cartoon-box p-2">
+             <div class="col-12 col-md-6 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="cartoon-box p-2 h-100 d-flex flex-column">
                     <div class="thumbnail-wrapper tiktok-trigger" data-id="7537176927925292293" data-url="https://www.tiktok.com/@ekspresi_smanisda/video/7537176927925292293">
-                        <img src="mpls day 3.webp" class="thumb-img" alt="MPLS Day 3" width="200" height="350">
+                        <img src="mpls day 3.webp" class="thumb-img" alt="Thumbnail">
                         <div class="play-overlay"><i class="fas fa-play"></i></div>
                     </div>
-                    <p class="video-title">MPLS Day 3</p>
+                    <p class="video-title mt-auto">MPLS Day 3</p>
                 </div>
             </div>
 
-            <div class="col-6 col-md-4 col-lg-3 mb-4" data-aos="zoom-in">
-                <div class="cartoon-box p-2">
+            <div class="col-12 col-md-6 col-lg-3 mb-4" data-aos="zoom-in">
+                <div class="cartoon-box p-2 h-100 d-flex flex-column">
                     <div class="thumbnail-wrapper tiktok-trigger" data-id="7537520023737240888" data-url="https://www.tiktok.com/@ekspresi_smanisda/video/7537520023737240888">
-                        <img src="mpls day 4.webp" class="thumb-img" alt="MPLS Day 4" width="200" height="350">
+                        <img src="mpls day 4.webp" class="thumb-img" alt="Thumbnail">
                         <div class="play-overlay"><i class="fas fa-play"></i></div>
                     </div>
-                    <p class="video-title">MPLS Day 4</p>
+                    <p class="video-title mt-auto">MPLS Day 4</p>
                 </div>
             </div>
-            
-            <div class="col-6 col-md-4 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="100">
-                <div class="cartoon-box p-2">
+
+            <div class="col-12 col-md-6 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                <div class="cartoon-box p-2 h-100 d-flex flex-column">
                     <div class="thumbnail-wrapper tiktok-trigger" data-id="7538040568274750725" data-url="https://www.tiktok.com/@ekspresi_smanisda/video/7538040568274750725">
-                        <img src="mpls day 5.webp" class="thumb-img" alt="MPLS Day 5" width="200" height="350">
+                        <img src="mpls day 5.webp" class="thumb-img" alt="Thumbnail">
                         <div class="play-overlay"><i class="fas fa-play"></i></div>
                     </div>
-                    <p class="video-title">MPLS Day 5</p>
+                    <p class="video-title mt-auto">MPLS Day 5</p>
                 </div>
             </div>
 
-             <div class="col-6 col-md-4 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="200">
-                <div class="cartoon-box p-2">
+            <div class="col-12 col-md-6 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                <div class="cartoon-box p-2 h-100 d-flex flex-column">
                     <div class="thumbnail-wrapper tiktok-trigger" data-id="7538410423071018245" data-url="https://www.tiktok.com/@ekspresi_smanisda/video/7538410423071018245">
-                        <img src="pbb day.webp" class="thumb-img" alt="PBB Day" width="200" height="350">
+                        <img src="pbb day.webp" class="thumb-img" alt="Thumbnail">
                         <div class="play-overlay"><i class="fas fa-play"></i></div>
                     </div>
-                    <p class="video-title">PBB Day</p>
+                    <p class="video-title mt-auto">PBB Day</p>
                 </div>
             </div>
 
-             <div class="col-6 col-md-4 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="300">
-                <div class="cartoon-box p-2">
+            <div class="col-12 col-md-6 col-lg-3 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                <div class="cartoon-box p-2 h-100 d-flex flex-column">
                     <div class="thumbnail-wrapper tiktok-trigger" data-id="7398063778337787143" data-url="https://www.tiktok.com/@ekspresi_smanisda/video/7398063778337787143">
-                        <img src="recruitment.webp" class="thumb-img" alt="Open Recruitment" width="200" height="350">
+                        <img src="recruitment.webp" class="thumb-img" alt="Thumbnail">
                         <div class="play-overlay"><i class="fas fa-play"></i></div>
                     </div>
-                    <p class="video-title">Open Recruitment</p>
+                    <p class="video-title mt-auto">Open Recruitment</p>
                 </div>
             </div>
         </div>
 
         <div class="text-center mt-5">
-            <div class="section-title" style="background: var(--secondary);" data-aos="flip-up">
-                <h3 class="m-0 fs-5"><i class="fab fa-instagram me-2"></i>Kabar Smanisda</h3>
-            </div>
+            <div class="section-title" style="background: var(--secondary);"><h3 class="m-0 fs-5"><i class="fab fa-instagram me-2"></i>Kabar Smanisda</h3></div>
         </div>
         
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="role-description-box" data-aos="fade-up">
-                    <p class="mb-3 small">
-                        As the Head Photographer at Kabar Smanisda series, I oversee the visual direction process to ensure aesthetic consistency in every edition. My responsibilities are strictly visual, focusing on composition and technical execution.
-                    </p>
-                    <p class="mb-0 fw-bold fst-italic small">
-                        <i class="fas fa-star me-2"></i>Fun fact: I work alongside junior members to provide them with practical field experience.
-                    </p>
+                    <p class="mb-3 small">As the Head Photographer at Kabar Smanisda series, I oversee the visual direction process to ensure aesthetic consistency in every edition. My responsibilities are strictly visual.</p>
+                    <p class="mb-0 fw-bold fst-italic small"><i class="fas fa-star me-2"></i>Fun fact: I work alongside junior members to provide them with practical field experience.</p>
                 </div>
             </div>
         </div>
+
         <div class="row justify-content-center">
-            <div class="col-md-6 mb-4" data-aos="fade-right">
-                <div class="cartoon-box p-3 d-flex flex-column align-items-center">
+            <div class="col-12 col-md-6 mb-4" data-aos="fade-right">
+                <div class="cartoon-box p-3">
                     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DRfgelSEn81/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; margin: 1px; max-width:540px; min-width:326px; width:99%;">
-                        <div style="padding:16px;"> <a href="https://www.instagram.com/p/DRfgelSEn81/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank">Loading Instagram...</a></div>
+                        <div style="padding:16px;"> <a href="https://www.instagram.com/p/DRfgelSEn81/" target="_blank">Loading Instagram...</a></div>
                     </blockquote>
                     <p class="video-title mt-2">Edisi November 2025</p>
                 </div>
             </div>
 
-            <div class="col-md-6 mb-4" data-aos="fade-left">
-                <div class="cartoon-box p-3 d-flex flex-column align-items-center">
+            <div class="col-12 col-md-6 mb-4" data-aos="fade-left">
+                <div class="cartoon-box p-3">
                     <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DM-nlZsTwc6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style="background:#FFF; border:0; margin: 1px; max-width:540px; min-width:326px; width:99%;">
-                        <div style="padding:16px;"> <a href="https://www.instagram.com/p/DM-nlZsTwc6/?utm_source=ig_embed&amp;utm_campaign=loading" target="_blank">Loading Instagram...</a></div>
+                        <div style="padding:16px;"> <a href="https://www.instagram.com/p/DM-nlZsTwc6/" target="_blank">Loading Instagram...</a></div>
                     </blockquote>
                     <p class="video-title mt-2">Edisi Juli - Agustus 2025</p>
                 </div>
@@ -397,7 +367,6 @@
         </div>
 
     </div>
-
     <footer class="text-center mt-5">
         <div class="container fw-bold">© 2025 Cammile Astoria</div>
     </footer>
@@ -407,24 +376,23 @@
     <script async src="//www.instagram.com/embed.js"></script>
 
     <script>
-        AOS.init();
+        AOS.init({ once: true });
 
-        // --- LOGIC TIKTOK ---
         document.querySelectorAll('.tiktok-trigger').forEach(trigger => {
             trigger.addEventListener('click', function() {
                 const videoId = this.getAttribute('data-id');
                 const videoUrl = this.getAttribute('data-url');
                 
                 const embedHTML = `
-                    <blockquote class="tiktok-embed" cite="${videoUrl}" data-video-id="${videoId}" style="max-width: 605px;min-width: 325px; margin: 0 auto;">
-                        <section><a target="_blank" href="${videoUrl}">Loading Video...</a></section>
-                    </blockquote>
+                    <div class="tiktok-container-fixed">
+                        <blockquote class="tiktok-embed" cite="${videoUrl}" data-video-id="${videoId}" style="margin: 0;">
+                            <section><a target="_blank" href="${videoUrl}">Loading Video...</a></section>
+                        </blockquote>
+                    </div>
                 `;
                 
-                const container = document.createElement('div');
-                container.innerHTML = embedHTML;
-                
-                this.replaceWith(container);
+                this.style.display = 'none';
+                this.insertAdjacentHTML('afterend', embedHTML);
 
                 if (!document.getElementById('tiktok-js')) {
                     const script = document.createElement('script');
