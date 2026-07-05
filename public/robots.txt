@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://creatifox.web.app/sitemap.xml
